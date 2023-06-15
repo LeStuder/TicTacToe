@@ -1,0 +1,24 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#grid {
+    --heigth: 60vh;
+    height: var(--heigth);
+    width: var(--heigth);
+    margin: calc(50vh - (0.5 * var(--heigth))) auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5px;
+}
+
+.cell {
+    background-color: aquamarine;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 4em;
+}
