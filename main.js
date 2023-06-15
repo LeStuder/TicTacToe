@@ -6,8 +6,38 @@ function boardController() {
     ];
 
     const getStatus = () => {
-        return false;
-        //check whether someone has won or if the game is a draw
+        const checkArr = [
+            _board[0],
+            _board[1],
+            _board[2],
+            [_board[0][0], _board[1][0], _board[2][0]],
+            [_board[0][1], _board[1][1], _board[2][1]],
+            [_board[0][2], _board[1][2], _board[2][2]],
+            [_board[0][0], _board[1][1], _board[2][2]],
+            [_board[2][0], _board[1][1], _board[0][2]],
+        ];
+
+        const checkWin = (arr) => {
+            if (arr[0] === arr[1] && arr[1] === arr[2] && arr[0] !== 0) {
+                return true;
+            }
+        };
+
+        const checkDraw = (arr) => {
+            if (arr.includes("X") && arr.includes("Y")) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        if (checkArr.some(checkWin)) {
+            return "WIN";
+        } else if (checkArr.every(checkDraw)) {
+            return "DRAW";
+        } else {
+            return false;
+        }
     };
 
     const getBoard = () => {
