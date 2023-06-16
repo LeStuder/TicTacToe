@@ -46,9 +46,9 @@ function boardController() {
 
     const emptyBoard = () => {
         _board = [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0],
+            [null, null, null],
+            [null, null, null],
+            [null, null, null],
         ];
     };
 
@@ -65,15 +65,12 @@ function boardController() {
 const board = boardController();
 
 function gameController() {
+    const _dialog = document.getElementById("dialog");
+
     _playersArr = [
         { name: "Player X", active: true, token: "X" },
         { name: "Player Y", active: false, token: "O" },
     ];
-
-    const setPlayerNames = (name1, name2) => {
-        _playersArr[0].name = name1;
-        _playersArr[1].name = name2;
-    };
 
     const switchActivePlayer = () => {
         for (let i in _playersArr) {
@@ -92,7 +89,8 @@ function gameController() {
     const restartGame = () => {
         board.emptyBoard();
         setActivePlayer();
-        setPlayerNames(name1, name2);
+        display.printBoard();
+        _dialog.close();
     };
 
     const playRound = (x, y) => {
