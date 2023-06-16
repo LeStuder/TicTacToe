@@ -4,11 +4,17 @@ body {
     padding: 0;
 }
 
+#container {
+    display: grid;
+    grid-template-rows: 2fr 5fr 2fr;
+    height: 100vh;
+}
+
 #grid {
-    --heigth: 60vh;
-    height: var(--heigth);
-    width: var(--heigth);
-    margin: calc(50vh - (0.5 * var(--heigth))) auto;
+    grid-row-start: 2;
+    height: 80vw;
+    width: 80vw;
+    margin: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -21,4 +27,14 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 4em;
+}
+
+.btn-restart {
+    font-size: 1.3em;
+    grid-row-start: 3;
+    margin: 0 auto;
+    height: 2em;
+    width: 7em;
+    border-radius: 9999px;
+    border: 0;
 }

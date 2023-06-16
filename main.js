@@ -1,8 +1,8 @@
 function boardController() {
     let _board = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0],
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
     ];
 
     const getStatus = () => {
@@ -18,7 +18,7 @@ function boardController() {
         ];
 
         const checkWin = (arr) => {
-            if (arr[0] === arr[1] && arr[1] === arr[2] && arr[0] !== 0) {
+            if (arr[0] === arr[1] && arr[1] === arr[2] && arr[0] !== null) {
                 return true;
             }
         };
@@ -53,7 +53,7 @@ function boardController() {
     };
 
     const checkEmptyCell = (x, y) => {
-        return _board[y][x] === 0;
+        return _board[y][x] === null;
     };
 
     const updateBoard = (player, x, y) => {
@@ -67,7 +67,7 @@ const board = boardController();
 function gameController() {
     _playersArr = [
         { name: "Player X", active: true, token: "X" },
-        { name: "Player Y", active: false, token: "Y" },
+        { name: "Player Y", active: false, token: "O" },
     ];
 
     const setPlayerNames = (name1, name2) => {
@@ -108,10 +108,11 @@ function gameController() {
 
     const playRound = (x, y) => {
         pastPlayer = processEntry(x, y);
+        4;
         if (board.getStatus() == "WIN") {
-            display.printWin(pastPlayer);
+            display.printEnd(pastPlayer);
         } else if (board.getStatus() == "DRAW") {
-            display.printDraw();
+            display.printEnd();
         }
         display.printBoard();
     };
@@ -126,6 +127,8 @@ const game = gameController();
 
 function displayController() {
     const gridElem = document.getElementById("grid");
+    const dialog = document.getElementById("dialog");
+    const dialogMessage = document.getElementById("dialog-message");
 
     const printBoard = () => {
         let boardArr = board.getBoard();
@@ -143,19 +146,16 @@ function displayController() {
         }
     };
 
-    const printWin = (player) => {
-        console.log("*****************************");
-        console.log(`${player} WON!`);
-        console.log("*****************************");
+    const printEnd = (player = null) => {
+        if (player !== null) {
+            dialogMessage.textContent = `${player.name} WON!!!`;
+        } else {
+            dialogMessage.textContent = "DRAW...";
+        }
+        dialog.showModal();
     };
 
-    const printDraw = () => {
-        console.log("*****************************");
-        console.log("DRAW...");
-        console.log("*****************************");
-    };
-
-    return { printBoard, printWin, printDraw };
+    return { printBoard, printEnd };
 }
 const display = displayController();
 
