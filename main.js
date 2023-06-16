@@ -95,17 +95,6 @@ function gameController() {
         setPlayerNames(name1, name2);
     };
 
-    const processEntry = (x, y) => {
-        if (board.checkEmptyCell(x, y)) {
-            board.updateBoard(getActivePlayer(), x, y);
-            let pastPlayer = getActivePlayer();
-            switchActivePlayer();
-            return pastPlayer;
-        } else {
-            console.log("this cell is already occupied");
-        }
-    };
-
     const playRound = (x, y) => {
         if (board.checkEmptyCell(x, y)) {
             board.updateBoard(getActivePlayer(), x, y);
@@ -125,18 +114,18 @@ function gameController() {
         display.printBoard();
     };
 
-    return { startGame, playRound };
+    return { startGame, playRound, restartGame };
 }
 const game = gameController();
 
 function displayController() {
-    const gridElem = document.getElementById("grid");
-    const dialog = document.getElementById("dialog");
-    const dialogMessage = document.getElementById("dialog-message");
+    const _gridElem = document.getElementById("grid");
+    const _dialog = document.getElementById("dialog");
+    const _dialogMessage = document.getElementById("dialog-message");
 
     const printBoard = () => {
         let boardArr = board.getBoard();
-        gridElem.innerHTML = "";
+        _gridElem.innerHTML = "";
         for (let y in boardArr) {
             for (let x in boardArr[y]) {
                 let cellElem = document.createElement("div");
@@ -145,18 +134,18 @@ function displayController() {
                 cellElem.addEventListener("click", () => {
                     game.playRound(x, y);
                 });
-                gridElem.appendChild(cellElem);
+                _gridElem.appendChild(cellElem);
             }
         }
     };
 
     const printEnd = (player = null) => {
         if (player !== null) {
-            dialogMessage.textContent = `${player.name} WON!!!`;
+            _dialogMessage.textContent = `${player.name} WON!!!`;
         } else {
-            dialogMessage.textContent = "DRAW...";
+            _dialogMessage.textContent = "DRAW...";
         }
-        dialog.showModal();
+        _dialog.showModal();
     };
 
     return { printBoard, printEnd };
