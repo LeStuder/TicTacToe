@@ -107,13 +107,17 @@ function gameController() {
     };
 
     const playRound = (x, y) => {
-        pastPlayer = processEntry(x, y);
-        4;
+        if (board.checkEmptyCell(x, y)) {
+            board.updateBoard(getActivePlayer(), x, y);
+        } else {
+            console.log("this cell is already occupied");
+        }
         if (board.getStatus() == "WIN") {
-            display.printEnd(pastPlayer);
+            display.printEnd(getActivePlayer());
         } else if (board.getStatus() == "DRAW") {
             display.printEnd();
         }
+        switchActivePlayer();
         display.printBoard();
     };
 
