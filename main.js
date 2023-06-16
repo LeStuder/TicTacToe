@@ -94,17 +94,20 @@ function gameController() {
     };
 
     const playRound = (x, y) => {
-        if (board.checkEmptyCell(x, y)) {
+        let validRound = board.checkEmptyCell(x, y);
+        if (validRound) {
             board.updateBoard(getActivePlayer(), x, y);
         } else {
             console.log("this cell is already occupied");
         }
-        if (board.getStatus() == "WIN") {
-            display.printEnd(getActivePlayer());
-        } else if (board.getStatus() == "DRAW") {
-            display.printEnd();
+        if (validRound) {
+            if (board.getStatus() == "WIN") {
+                display.printEnd(getActivePlayer());
+            } else if (board.getStatus() == "DRAW") {
+                display.printEnd();
+            }
+            switchActivePlayer();
         }
-        switchActivePlayer();
         display.printBoard();
     };
 
